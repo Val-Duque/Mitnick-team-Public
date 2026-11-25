@@ -1,0 +1,602 @@
+/* =========================================================
+   1. VARIABLES Y RESET
+   ========================================================= */
+:root {
+    --bg-body: #0b1120;
+    --bg-panel: #0f172a;
+    --bg-card: #1e293b;
+    --bg-selected: #172554;
+
+    --border-subtle: #1e293b;
+    --border-mid: #334155;
+    --border-input: #475569;
+
+    --text-main: #e2e8f0;
+    --text-bright: #f8fafc;
+    --text-soft: #cbd5e1;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+
+    --accent: #38bdf8;
+    --accent-btn: #0284c7;
+    --accent-btn-hover: #0369a1;
+
+    --ok: #34d399;
+    --ok-solid: #10b981;
+    --ok-bg: #065f46;
+    --ok-bg-dark: #064e3b;
+    --ok-text: #6ee7b7;
+
+    --warn: #fbbf24;
+    --warn-solid: #f59e0b;
+    --warn-bg: #78350f;
+    --warn-text: #fcd34d;
+
+    --err: #f87171;
+    --err-solid: #ef4444;
+    --err-btn: #dc2626;
+    --err-btn-hover: #b91c1c;
+    --err-bg: #7f1d1d;
+    --err-text: #fca5a5;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg-body);
+    color: var(--text-main);
+    margin: 0;
+    padding: 18px;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1480px;
+    margin: 0 auto;
+}
+
+.oculto {
+    display: none;
+}
+
+.txt-accent { color: var(--accent); }
+.txt-ok     { color: var(--ok); }
+.txt-warn   { color: var(--warn); }
+.txt-err    { color: var(--err); }
+
+/* =========================================================
+   2. LOGIN SOC
+   ========================================================= */
+.login-wrapper {
+    max-width: 430px;
+    margin: 70px auto;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-mid);
+    border-radius: 18px;
+    padding: 32px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+}
+
+.login-logo {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.login-shield {
+    font-size: 42px;
+}
+
+.login-logo h1 {
+    margin: 8px 0 4px;
+    font-size: 22px;
+    color: var(--accent);
+}
+
+.login-logo p {
+    margin: 0;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.soc-field {
+    margin-bottom: 14px;
+}
+
+.soc-field label {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--text-soft);
+    margin-bottom: 5px;
+}
+
+.soc-input {
+    width: 100%;
+    padding: 11px 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-input);
+    border-radius: 9px;
+    color: #ffffff;
+    font-size: 13px;
+    font-family: inherit;
+}
+
+.soc-input:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: -1px;
+}
+
+.btn-login-soc {
+    width: 100%;
+    padding: 12px;
+    background: var(--accent-btn);
+    color: #ffffff;
+    border: none;
+    border-radius: 9px;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.15s;
+}
+
+.btn-login-soc:hover {
+    background: var(--accent-btn-hover);
+}
+
+.login-error {
+    color: var(--err);
+    font-size: 12px;
+    margin-top: 10px;
+    text-align: center;
+    min-height: 16px;
+}
+
+/* =========================================================
+   3. ENCABEZADO DEL DASHBOARD
+   ========================================================= */
+.header {
+    background: linear-gradient(90deg, var(--bg-panel), var(--bg-card));
+    border: 1px solid var(--border-mid);
+    padding: 16px 24px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.brand-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--accent);
+    margin: 0;
+}
+
+.brand-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.header-btns {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.btn-top {
+    background: var(--bg-card);
+    color: var(--text-main);
+    border: 1px solid var(--border-input);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: inherit;
+    transition: background 0.15s;
+}
+
+.btn-top:hover {
+    background: var(--border-mid);
+}
+
+.btn-trafico {
+    background: var(--accent-btn-hover);
+    color: #ffffff;
+    border-color: var(--accent);
+}
+
+.btn-trafico:hover {
+    background: var(--accent-btn);
+}
+
+.btn-danger-outline {
+    border-color: var(--err-solid);
+    color: var(--err-text);
+}
+
+.pill-live {
+    background: var(--ok-bg);
+    color: var(--ok-text);
+    border: 1px solid var(--ok-solid);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* =========================================================
+   4. GRID Y PANELES
+   ========================================================= */
+.grid-top {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.grid-bottom {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 16px;
+}
+
+@media (max-width: 1100px) {
+    .grid-top,
+    .grid-bottom {
+        grid-template-columns: 1fr;
+    }
+}
+
+.panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 16px;
+}
+
+.panel h3 {
+    margin: 0 0 12px;
+    font-size: 13px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 8px;
+}
+
+/* =========================================================
+   5. KPIs, BARRAS DE PROGRESO Y GRÁFICO
+   ========================================================= */
+.kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.kpi {
+    background: var(--bg-card);
+    padding: 10px 6px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.kpi-v {
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--accent);
+}
+
+.kpi-l {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+.reto-bar {
+    margin-bottom: 8px;
+    font-size: 12px;
+}
+
+.reto-bar-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.bar-bg {
+    width: 100%;
+    height: 8px;
+    background: var(--bg-card);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+.bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-btn), var(--accent));
+    transition: width 0.3s ease;
+}
+
+.bar-fill-ok       { width: 100%; background: linear-gradient(90deg, var(--ok-solid), var(--ok)); }
+.bar-fill-latencia { width: 99.4%; }
+.bar-fill-full     { width: 100%; }
+
+.chart-bars {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    height: 130px;
+    padding-top: 15px;
+    border-bottom: 1px solid var(--border-mid);
+}
+
+.bar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 65px;
+}
+
+.bar-rect {
+    width: 36px;
+    height: 10px;
+    border-radius: 6px 6px 0 0;
+    transition: height 0.3s ease;
+    min-height: 4px;
+}
+
+.bar-rect-ok   { background: var(--ok-solid); }
+.bar-rect-warn { background: var(--warn-solid); }
+.bar-rect-err  { background: var(--err-solid); }
+
+.bar-val {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.bar-name {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 6px;
+}
+
+.chart-footnote {
+    margin-top: 12px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* =========================================================
+   6. TRÁFICO Y TABLAS
+   ========================================================= */
+.trafico-box {
+    background: var(--bg-card);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    font-size: 11px;
+}
+
+.trafico-item {
+    background: var(--bg-panel);
+    padding: 7px 9px;
+    border-radius: 7px;
+    border-left: 3px solid var(--accent);
+}
+
+.trafico-lbl {
+    color: var(--text-muted);
+}
+
+.trafico-num {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--text-bright);
+}
+
+.table-scroll {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+th {
+    background: var(--bg-card);
+    color: var(--text-muted);
+    padding: 10px 8px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 8px;
+    border-bottom: 1px solid var(--border-subtle);
+    vertical-align: middle;
+}
+
+.mini-table th,
+.mini-table td {
+    padding: 6px;
+    font-size: 11px;
+}
+
+.empty-cell {
+    text-align: center;
+    color: var(--text-dim);
+}
+
+tr.click-row {
+    cursor: pointer;
+    transition: background 0.12s;
+}
+
+tr.click-row:hover {
+    background: var(--bg-card);
+}
+
+tr.selected-row {
+    background: var(--bg-selected) !important;
+    border-left: 3px solid var(--accent);
+}
+
+.badge {
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.b-aprobar  { background: var(--ok-bg); color: var(--ok-text); }
+.b-desafiar { background: var(--warn-bg); color: var(--warn-text); }
+.b-rechazar { background: var(--err-bg); color: var(--err-text); }
+
+.mono {
+    font-family: monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.mono-break {
+    word-break: break-all;
+}
+
+/* =========================================================
+   7. EXPEDIENTE FORENSE
+   ========================================================= */
+.inspector-box {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 14px;
+}
+
+.inspector-empty {
+    color: var(--text-muted);
+    font-size: 13px;
+    text-align: center;
+    padding: 30px 10px;
+}
+
+.insp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.insp-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.insp-tx-title {
+    font-size: 15px;
+    color: var(--accent);
+}
+
+.insp-user-sub {
+    font-size: 12px;
+}
+
+.foto-insp {
+    width: 64px;
+    height: 64px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 2px solid var(--accent);
+    transform: scaleX(-1);
+}
+
+.foto-placeholder {
+    width: 64px;
+    height: 64px;
+    background: var(--bg-panel);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.insp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    font-size: 12px;
+    margin: 10px 0;
+    background: var(--bg-panel);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.insp-block {
+    font-size: 12px;
+    background: var(--bg-panel);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.insp-hash-block {
+    font-size: 11px;
+    background: var(--bg-panel);
+    padding: 8px 10px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+}
+
+.auto-status {
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.auto-ok    { background: var(--ok-bg-dark); color: var(--ok-text); border: 1px solid var(--ok-solid); }
+.auto-warn  { background: var(--warn-bg); color: var(--warn-text); border: 1px solid var(--warn-solid); }
+.auto-block { background: var(--err-bg); color: var(--err-text); border: 1px solid var(--err-solid); }
+
+.btn-soc-final {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 12px;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 8px;
+    background: var(--err-btn);
+    color: #ffffff;
+    transition: background 0.15s;
+}
+
+.btn-soc-final:hover {
+    background: var(--err-btn-hover);
+}

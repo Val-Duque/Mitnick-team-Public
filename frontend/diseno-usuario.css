@@ -1,0 +1,476 @@
+/* =========================================================
+   1. VARIABLES Y RESET
+   ========================================================= */
+:root {
+    --bg-page: #0f172a;
+    --bg-surface: #ffffff;
+    --bg-subtle: #f8fafc;
+    --bg-muted: #f1f5f9;
+    --border: #e2e8f0;
+    --border-input: #cbd5e1;
+
+    --text-main: #1e293b;
+    --text-dark: #0f172a;
+    --text-muted: #64748b;
+    --text-label: #475569;
+
+    --brand: #004080;
+    --brand-dark: #003366;
+    --brand-hover: #002b55;
+    --brand-light: #0066cc;
+    --accent: #0284c7;
+
+    --ok: #16a34a;
+    --ok-dark: #166534;
+    --warn: #f59e0b;
+    --warn-dark: #92400e;
+    --err: #dc2626;
+    --err-dark: #991b1b;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg-page);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    color: var(--text-main);
+}
+
+.phone {
+    width: 420px;
+    max-width: 100%;
+    background: var(--bg-surface);
+    border: 12px solid var(--text-main);
+    border-radius: 38px;
+    padding: 20px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
+    position: relative;
+}
+
+.notch {
+    width: 130px;
+    height: 6px;
+    background: var(--border-input);
+    border-radius: 10px;
+    margin: 0 auto 14px;
+}
+
+.oculto {
+    display: none;
+}
+
+/* =========================================================
+   2. ENCABEZADOS Y AUTENTICACIÓN
+   ========================================================= */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--brand);
+    letter-spacing: -0.5px;
+}
+
+.user-greeting {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.btn-logout {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-logout:hover {
+    background: #fecaca;
+}
+
+.login-hero {
+    text-align: center;
+    padding: 10px 0 14px;
+}
+
+.login-icon {
+    font-size: 34px;
+}
+
+.login-hero h2 {
+    margin: 6px 0 2px;
+    color: var(--brand-dark);
+    font-size: 22px;
+}
+
+.login-hero p {
+    margin: 0;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.link-recover {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    margin-top: 12px;
+    padding: 4px;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: inherit;
+}
+
+.security-box {
+    background: var(--bg-subtle);
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    margin-bottom: 8px;
+}
+
+.security-box-title {
+    font-size: 11px;
+    font-weight: bold;
+    color: var(--brand-dark);
+    margin-bottom: 5px;
+}
+
+.recover-notice {
+    background: #fef3c7;
+    border: 1px solid #fcd34d;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    color: var(--warn-dark);
+    margin-bottom: 10px;
+}
+
+/* =========================================================
+   3. TARJETA BANCARIA Y TOPE DIARIO
+   ========================================================= */
+.card-bank {
+    background: linear-gradient(135deg, var(--brand-dark), var(--brand-light));
+    color: #ffffff;
+    padding: 18px;
+    border-radius: 18px;
+    margin-bottom: 14px;
+    box-shadow: 0 8px 20px rgba(0, 102, 204, 0.25);
+}
+
+.card-lbl {
+    font-size: 11px;
+    opacity: 0.85;
+    text-transform: uppercase;
+}
+
+.card-bal {
+    font-size: 28px;
+    font-weight: 800;
+    margin: 4px 0 10px;
+}
+
+.card-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    background: rgba(0, 0, 0, 0.22);
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-family: monospace;
+}
+
+.tope-box {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    font-size: 11px;
+}
+
+.tope-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tope-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: var(--border);
+    border-radius: 4px;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.tope-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.tope-note {
+    margin-top: 4px;
+    color: var(--text-muted);
+}
+
+/* =========================================================
+   4. PESTAÑAS (TABS)
+   ========================================================= */
+.tabs {
+    display: flex;
+    background: var(--bg-muted);
+    padding: 4px;
+    border-radius: 12px;
+    margin-bottom: 14px;
+    gap: 4px;
+}
+
+.tab {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    text-align: center;
+    padding: 8px 4px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 9px;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: background 0.15s, color 0.15s;
+}
+
+.tab.active {
+    background: var(--bg-surface);
+    color: var(--brand);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+}
+
+/* =========================================================
+   5. FORMULARIOS Y BOTONES
+   ========================================================= */
+.field {
+    margin-bottom: 9px;
+}
+
+.field label {
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    color: var(--text-label);
+    margin-bottom: 3px;
+}
+
+.input {
+    width: 100%;
+    padding: 9px 11px;
+    border: 1px solid var(--border-input);
+    border-radius: 10px;
+    font-size: 13px;
+    font-family: inherit;
+}
+
+.input:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: -1px;
+}
+
+.row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.btn {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: filter 0.15s, transform 0.1s;
+}
+
+.btn:hover {
+    filter: brightness(0.92);
+}
+
+.btn:active {
+    transform: scale(0.99);
+}
+
+.btn-blue  { background: var(--brand); color: #ffffff; }
+.btn-green { background: var(--ok); color: #ffffff; }
+.btn-red   { background: var(--err); color: #ffffff; }
+.btn-amber { background: var(--warn); color: var(--text-dark); }
+
+/* =========================================================
+   6. CÁMARA Y NOTIFICACIÓN PUSH BIOMÉTRICA
+   ========================================================= */
+video {
+    width: 100%;
+    border-radius: 12px;
+    border: 2px solid var(--brand);
+    margin-top: 8px;
+    background: #000000;
+}
+
+.selfie {
+    transform: scaleX(-1);
+}
+
+.vid-push {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.push-overlay {
+    background: #fffbeb;
+    border: 2px solid var(--warn);
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 14px;
+    animation: pulse 1.5s infinite;
+}
+
+.push-header {
+    font-size: 12px;
+    font-weight: 800;
+    color: #b45309;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.push-body {
+    font-size: 12px;
+    color: #78350f;
+    margin-bottom: 8px;
+}
+
+@keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+    70%  { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+}
+
+/* =========================================================
+   7. MOVIMIENTOS
+   ========================================================= */
+.mov-resumen {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.mov-card {
+    border-radius: 10px;
+    padding: 8px 10px;
+    border: 1px solid transparent;
+}
+
+.mov-card-in {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+}
+
+.mov-card-out {
+    background: #fef2f2;
+    border-color: #fecaca;
+}
+
+.mov-card-lbl {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.mov-card-val {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.mov-card-in .mov-card-lbl  { color: #15803d; }
+.mov-card-in .mov-card-val  { color: var(--ok-dark); }
+.mov-card-out .mov-card-lbl { color: #b91c1c; }
+.mov-card-out .mov-card-val { color: var(--err-dark); }
+
+.mov-lista {
+    max-height: 230px;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg-subtle);
+}
+
+.mov-vacio {
+    padding: 18px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.mov-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+}
+
+.mov-item:last-child {
+    border-bottom: none;
+}
+
+.mov-titulo {
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+.mov-meta {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+.monto-in  { color: var(--ok); font-weight: 800; }
+.monto-out { color: var(--err); font-weight: 800; }
+
+/* =========================================================
+   8. ALERTAS
+   ========================================================= */
+.alert {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.alert-ok   { background: #dcfce7; border: 1px solid #86efac; color: var(--ok-dark); }
+.alert-warn { background: #fef3c7; border: 1px solid #fcd34d; color: var(--warn-dark); }
+.alert-err  { background: #fee2e2; border: 1px solid #fca5a5; color: var(--err-dark); }

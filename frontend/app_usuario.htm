@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuma Pay — Banca Móvil</title>
+    <link rel="stylesheet" href="diseno-usuario.css">
+    <script src="funcion.js" defer></script>
+</head>
+<body>
+
+    <main class="phone">
+        <div class="notch" aria-hidden="true"></div>
+
+        <!-- PANTALLA 1: AUTENTICACIÓN -->
+        <section id="pantalla-login">
+            <header class="login-hero">
+                <div class="login-icon" aria-hidden="true">🏦</div>
+                <h2>Yuma Pay</h2>
+                <p>Tu banca digital segura</p>
+            </header>
+
+            <nav class="tabs" aria-label="Opciones de acceso">
+                <button type="button" class="tab active" onclick="verTabAuth('login', this)">🔐 Ingresar</button>
+                <button type="button" class="tab" onclick="verTabAuth('crear', this)">🪪 Crear Cuenta</button>
+                <button type="button" class="tab" onclick="verTabAuth('recuperar', this)">📱 Nuevo Equipo</button>
+            </nav>
+
+            <!-- SUBVISTA 1: LOGIN -->
+            <div id="auth-login">
+                <div class="field">
+                    <label for="log-id">ID Cliente o Correo Electrónico:</label>
+                    <input type="text" id="log-id" class="input" placeholder="Ej. C001 o carlos@yuma.co" autocomplete="username">
+                </div>
+                <div class="field">
+                    <label for="log-pin">Clave / PIN Bancario:</label>
+                    <input type="password" id="log-pin" class="input" placeholder="••••" autocomplete="current-password">
+                </div>
+                <button type="button" class="btn btn-blue" onclick="iniciarSesionUsuario()">🔓 Ingresar a Mi Cuenta</button>
+                <button type="button" class="link-recover" onclick="verTabAuth('recuperar', document.querySelectorAll('#pantalla-login .tab')[2])">
+                    ¿Perdiste tu celular o ingresas desde otro computador?
+                </button>
+            </div>
+
+            <!-- SUBVISTA 2: REGISTRO -->
+            <div id="auth-crear" class="oculto">
+                <div class="field">
+                    <label for="reg-nombre">Nombre Completo del Titular:</label>
+                    <input type="text" id="reg-nombre" class="input" placeholder="Ej. Sofía Arango">
+                </div>
+                <div class="row-2">
+                    <div class="field">
+                        <label for="reg-correo">Correo:</label>
+                        <input type="email" id="reg-correo" class="input" placeholder="sofia@yuma.co">
+                    </div>
+                    <div class="field">
+                        <label for="reg-pin">PIN (4 dígitos):</label>
+                        <input type="password" id="reg-pin" class="input" placeholder="••••" maxlength="4">
+                    </div>
+                </div>
+                <div class="row-2">
+                    <div class="field">
+                        <label for="reg-ciudad">Ciudad Habitual:</label>
+                        <select id="reg-ciudad" class="input">
+                            <option value="Medellin">Medellín</option>
+                            <option value="Bogota">Bogotá</option>
+                            <option value="Cali">Cali</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="reg-saldo">Saldo Inicial (COP):</label>
+                        <input type="number" id="reg-saldo" class="input" value="2500000" min="0">
+                    </div>
+                </div>
+
+                <div class="security-box">
+                    <div class="security-box-title">🛡️ Preguntas de Respaldo (Por pérdida de celular):</div>
+                    <div class="field">
+                        <label for="reg-p1">1. ¿En qué ciudad naciste?</label>
+                        <input type="text" id="reg-p1" class="input" placeholder="Ej. Medellín">
+                    </div>
+                    <div class="row-2">
+                        <div class="field">
+                            <label for="reg-p2">2. Nombre 1ra mascota:</label>
+                            <input type="text" id="reg-p2" class="input" placeholder="Ej. Max">
+                        </div>
+                        <div class="field">
+                            <label for="reg-p3">3. Últimos 4 dígitos cédula:</label>
+                            <input type="text" id="reg-p3" class="input" placeholder="Ej. 4821" maxlength="4">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-blue" onclick="encenderCamara('vid-reg')">📸 Activar Cámara para Registrar Rostro</button>
+                <video id="vid-reg" class="selfie oculto" autoplay playsinline></video>
+                <button type="button" class="btn btn-green" onclick="registrarUsuario()">✅ Crear Cuenta y Guardar Rostro en BD</button>
+            </div>
+
+            <!-- SUBVISTA 3: RECUPERACIÓN -->
+            <div id="auth-recuperar" class="oculto">
+                <div class="recover-notice">
+                    <strong>⚠️ Cambio de Dispositivo Detectado</strong><br>
+                    Responde tus preguntas de seguridad y verifica tu rostro contra la BD Biométrica para desvincular el celular perdido y activar este equipo.
+                </div>
+                <div class="field">
+                    <label for="rec-id">ID Cliente o Correo:</label>
+                    <input type="text" id="rec-id" class="input" placeholder="Ej. C001 o carlos@yuma.co">
+                </div>
+                <div class="field">
+                    <label for="rec-p1">1. ¿En qué ciudad naciste?</label>
+                    <input type="text" id="rec-p1" class="input" placeholder="Tu respuesta">
+                </div>
+                <div class="field">
+                    <label for="rec-p2">2. ¿Cuál fue el nombre de tu primera mascota?</label>
+                    <input type="text" id="rec-p2" class="input" placeholder="Tu respuesta">
+                </div>
+                <div class="field">
+                    <label for="rec-p3">3. ¿Últimos 4 dígitos de tu documento de identidad?</label>
+                    <input type="text" id="rec-p3" class="input" placeholder="4 dígitos" maxlength="4">
+                </div>
+
+                <button type="button" class="btn btn-blue" onclick="encenderCamara('vid-rec')">📸 Activar Cámara para Cotejo Facial</button>
+                <video id="vid-rec" class="selfie oculto" autoplay playsinline></video>
+                <button type="button" class="btn btn-amber" onclick="verificarPreguntasYRecuperar()">🔄 Verificar Identidad y Vincular Este Equipo</button>
+            </div>
+
+            <div id="zona-msg-auth" aria-live="polite"></div>
+        </section>
+
+        <!-- PANTALLA 2: APP BANCARIA -->
+        <section id="pantalla-app" class="oculto">
+            <header class="top-bar">
+                <div>
+                    <span class="logo">Yuma Pay</span>
+                    <div class="user-greeting" id="lbl-saludo">Hola, ---</div>
+                </div>
+                <button type="button" class="btn-logout" onclick="cerrarSesionUsuario()">Salir 🚪</button>
+            </header>
+
+            <div id="zona-push" aria-live="assertive"></div>
+
+            <div class="card-bank">
+                <div class="card-lbl">Saldo Disponible</div>
+                <div class="card-bal" id="lbl-saldo">$0</div>
+                <div class="card-meta">
+                    <span id="lbl-imei">IMEI: ---</span>
+                    <span id="lbl-ciudad">📍 ---</span>
+                </div>
+            </div>
+
+            <div class="tope-box">
+                <div class="tope-header">
+                    <span><strong>Tope Diario Usado:</strong> <span id="lbl-gastado">$0</span></span>
+                    <span>Límite: <strong>$5.000.000</strong></span>
+                </div>
+                <div class="tope-bar-bg">
+                    <div id="bar-tope" class="tope-bar-fill"></div>
+                </div>
+                <div class="tope-note">Tope máximo por transferencia: <strong>$2.000.000</strong></div>
+            </div>
+
+            <nav class="tabs" aria-label="Operaciones bancarias">
+                <button type="button" class="tab active" onclick="verTabApp('transferir', this)">💸 Transferir</button>
+                <button type="button" class="tab" onclick="verTabApp('qr', this)">📷 Pagar QR</button>
+                <button type="button" class="tab" onclick="verTabApp('movimientos', this)">📜 Movimientos</button>
+            </nav>
+
+            <!-- TAB 1: TRANSFERIR -->
+            <div id="tab-transferir">
+                <div class="field">
+                    <label for="tx-destino">Llave, ID Cliente (Ej. C002) o Comercio Destino:</label>
+                    <input type="text" id="tx-destino" class="input" value="Supermercado_Exito">
+                </div>
+                <div class="row-2">
+                    <div class="field">
+                        <label for="tx-monto">Monto (COP):</label>
+                        <input type="number" id="tx-monto" class="input" value="120000" min="1">
+                    </div>
+                    <div class="field">
+                        <label for="tx-ciudad">Ciudad de Conexión:</label>
+                        <select id="tx-ciudad" class="input">
+                            <option value="Medellin">Medellín</option>
+                            <option value="Bogota">Bogotá</option>
+                            <option value="Cali">Cali</option>
+                            <option value="Miami (Exterior)">Miami (Exterior)</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-blue" onclick="realizarOperacion(false)">🚀 Confirmar Transferencia</button>
+            </div>
+
+            <!-- TAB 2: PAGAR CON QR -->
+            <div id="tab-qr" class="oculto">
+                <div class="field">
+                    <label for="qr-monto">Monto del Pago QR (COP):</label>
+                    <input type="number" id="qr-monto" class="input" value="45000" min="1">
+                </div>
+                <div class="field">
+                    <label for="qr-destino">Código o Comercio Escaneado:</label>
+                    <input type="text" id="qr-destino" class="input" value="Cafe_Pergamino_QR">
+                </div>
+                <button type="button" class="btn btn-blue" onclick="activarCamaraQR()">📷 Escanear QR con Cámara</button>
+                <video id="vid-qr" class="oculto" autoplay playsinline></video>
+                <button type="button" class="btn btn-green" onclick="realizarOperacion(true)">💳 Pagar QR Ahora</button>
+            </div>
+
+            <!-- TAB 3: MOVIMIENTOS -->
+            <div id="tab-movimientos" class="oculto">
+                <div class="mov-resumen">
+                    <div class="mov-card mov-card-in">
+                        <div class="mov-card-lbl">DINERO RECIBIDO</div>
+                        <div class="mov-card-val" id="lbl-total-recibido">$0</div>
+                    </div>
+                    <div class="mov-card mov-card-out">
+                        <div class="mov-card-lbl">DINERO TRANSFERIDO</div>
+                        <div class="mov-card-val" id="lbl-total-enviado">$0</div>
+                    </div>
+                </div>
+                <div class="mov-lista" id="lista-movimientos"></div>
+            </div>
+
+            <div id="zona-mensaje" aria-live="polite"></div>
+        </section>
+    </main>
+
+</body>
+</html>

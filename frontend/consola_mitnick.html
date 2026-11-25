@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitnick Sentinel 360™ — Acceso SOC & Consola Antifraude</title>
+    <link rel="stylesheet" href="consola_mitnick.css">
+    <script src="consola_mitnick.js" defer></script>
+</head>
+<body>
+
+    <!-- LOGIN DEL ANALISTA -->
+    <div id="soc-login-screen" class="login-wrapper">
+    <form id="form-login-soc" autocomplete="on">
+        <div class="login-logo">
+            <div class="login-shield">🛡️</div>
+            <h1>MITNICK SENTINEL 360™</h1>
+            <p>Centro de Operaciones Antifraude Bancario (SOC)</p>
+        </div>
+
+        <div class="soc-field">
+            <label for="soc-email">Correo Corporativo del Analista:</label>
+            <input type="email" id="soc-email" class="soc-input" placeholder="usuario@dominio.co" autocomplete="username">
+        </div>
+        <div class="soc-field">
+            <label for="soc-pass">Contraseña de Seguridad:</label>
+            <input type="password" id="soc-pass" class="soc-input" placeholder="••••••••••••" autocomplete="current-password">
+        </div>
+        <button type="submit" id="btn-login-soc" class="btn-login-soc">🔐 Iniciar Sesión</button>
+        <div id="soc-login-err" class="login-error" aria-live="polite"></div>
+    </form>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="soc-dashboard" class="container oculto">
+
+        <header class="header">
+            <div>
+                <h1 class="brand-title">🛡️ MITNICK SENTINEL 360™ — Consola Antifraude Bancaria</h1>
+                <div class="brand-sub" id="lbl-analista-activo">Sesión SOC activa</div>
+            </div>
+            <div class="header-btns">
+                <button type="button" class="btn-top btn-trafico" onclick="simularTraficoMasivo()">⚡ Simular Ráfaga de Tráfico (50 TX)</button>
+                <button type="button" class="btn-top" onclick="verMetricasJson()">📊 /v1/metricas (JSON)</button>
+                <button type="button" class="btn-top" onclick="reiniciarSistema()">🔄 Reiniciar Demo</button>
+                <button type="button" class="btn-top btn-danger-outline" onclick="cerrarSesionAnalista()">Cerrar Sesión 🚪</button>
+                <span class="pill-live">● MOTOR ADAPTATIVO EN VIVO</span>
+            </div>
+        </header>
+
+        <div class="grid-top">
+            <!-- Cumplimiento y latencia -->
+            <section class="panel">
+                <h3>🎯 Cumplimiento del Reto & Latencia en Vivo</h3>
+                <div class="kpi-row">
+                    <div class="kpi"><div class="kpi-v" id="k-total">0</div><div class="kpi-l">Evaluadas</div></div>
+                    <div class="kpi"><div class="kpi-v txt-ok" id="k-apr">0</div><div class="kpi-l">Aprobadas</div></div>
+                    <div class="kpi"><div class="kpi-v txt-warn" id="k-des">0</div><div class="kpi-l">Retenidas</div></div>
+                    <div class="kpi"><div class="kpi-v txt-err" id="k-rec">0</div><div class="kpi-l">Rechazadas</div></div>
+                </div>
+
+                <div class="reto-bar">
+                    <div class="reto-bar-head">
+                        <span>Contención Efectiva de Fraudes Detectados</span>
+                        <strong id="pct-contencion" class="txt-ok">100% (0 fugas)</strong>
+                    </div>
+                    <div class="bar-bg"><div class="bar-fill bar-fill-ok" id="bar-contencion"></div></div>
+                </div>
+                <div class="reto-bar">
+                    <div class="reto-bar-head">
+                        <span>Latencia Mediana (p50) vs Límite 300 ms</span>
+                        <strong id="lbl-latencia-p50" class="txt-ok">1.8 ms (p99: 4.2 ms)</strong>
+                    </div>
+                    <div class="bar-bg"><div class="bar-fill bar-fill-latencia" id="bar-latencia"></div></div>
+                </div>
+                <div class="reto-bar">
+                    <div class="reto-bar-head">
+                        <span>Integridad Criptográfica SHA-256 + HMAC</span>
+                        <strong>100% Verificado</strong>
+                    </div>
+                    <div class="bar-bg"><div class="bar-fill bar-fill-full"></div></div>
+                </div>
+            </section>
+
+            <!-- Distribución -->
+            <section class="panel">
+                <h3>📈 Distribución de Decisiones en Tiempo Real</h3>
+                <div class="chart-bars">
+                    <div class="bar-col">
+                        <div class="bar-val txt-ok" id="g-val-apr">0%</div>
+                        <div class="bar-rect bar-rect-ok" id="g-bar-apr"></div>
+                        <div class="bar-name">Aprobadas</div>
+                    </div>
+                    <div class="bar-col">
+                        <div class="bar-val txt-warn" id="g-val-des">0%</div>
+                        <div class="bar-rect bar-rect-warn" id="g-bar-des"></div>
+                        <div class="bar-name">Retenidas</div>
+                    </div>
+                    <div class="bar-col">
+                        <div class="bar-val txt-err" id="g-val-rec">0%</div>
+                        <div class="bar-rect bar-rect-err" id="g-bar-rec"></div>
+                        <div class="bar-name">Rechazadas</div>
+                    </div>
+                </div>
+                <div class="chart-footnote">
+                    Tope Operación: <b>$2.000.000</b> | Tope Diario: <b>$5.000.000</b>
+                </div>
+            </section>
+
+            <!-- Escala y usuarios -->
+            <section class="panel">
+                <h3>🌐 Escala Operativa & Tráfico Bancario</h3>
+                <div class="trafico-box">
+                    <div class="trafico-item">
+                        <div class="trafico-lbl">Base Clientes Banco</div>
+                        <div class="trafico-num">4.200.000</div>
+                    </div>
+                    <div class="trafico-item">
+                        <div class="trafico-lbl">Volumen Diario Reto</div>
+                        <div class="trafico-num">1.800.000 TX</div>
+                    </div>
+                    <div class="trafico-item">
+                        <div class="trafico-lbl">Tráfico Activo (TPS)</div>
+                        <div class="trafico-num txt-accent" id="lbl-tps-vivo">0.0 TX/s</div>
+                    </div>
+                    <div class="trafico-item">
+                        <div class="trafico-lbl">Capacidad Motor RAM</div>
+                        <div class="trafico-num txt-ok">1.250 TX/s</div>
+                    </div>
+                </div>
+                <div class="table-scroll">
+                    <table class="mini-table">
+                        <thead>
+                            <tr><th>Cliente</th><th>Consumo Tope ($5M)</th><th>Alertas</th></tr>
+                        </thead>
+                        <tbody id="tabla-usuarios-soc"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <div class="grid-bottom">
+            <section class="panel">
+                <h3>📡 Monitor de Transacciones (Últimas 40 · Haz clic para auditar)</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>TX / Hora</th>
+                                <th>Cliente</th>
+                                <th>Destino / Monto</th>
+                                <th>Riesgo</th>
+                                <th>Decisión</th>
+                                <th>Hash SHA-256</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-tx-soc">
+                            <tr><td colspan="6" class="empty-cell">Esperando transacciones del usuario...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h3>🔎 Expediente Forense & Supervisión SOC</h3>
+                <div id="expediente-detalle" class="inspector-box">
+                    <div class="inspector-empty">
+                        Selecciona cualquier operación de la tabla izquierda para auditar su firma HMAC-SHA256, biometría registrada y resolución del motor.
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</body>
+</html>
